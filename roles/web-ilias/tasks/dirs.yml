@@ -1,0 +1,24 @@
+- name: Creates directory
+  file:
+    path: /opt/ilias/data
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0770
+
+- name: Recursively change ownership of a directory
+  file:
+    path: /var/www/html/ilias
+    state: directory
+    recurse: yes
+    owner: www-data
+    group: www-data
+    mode: 0775
+- name: Ilias Log-Dir
+  file:
+    path: /var/ilias/log
+    state: directory
+    recurse: yes
+    owner: www-data
+    group: www-data
+    mode: 0775

@@ -1,0 +1,32 @@
+generic_packages:
+  - apache2
+  - php7.2
+  - php-imagick
+  - php7.2-mysql
+  - php-imagick
+  - php7.2-xml
+  - php7.2-soap
+  - php7.2-mbstring
+  - gnupg2
+  - curl
+  - php7.2-curl
+  - php7.2-gd
+  - php7.2-intl
+  - imagemagick
+  - zip
+  - unzip
+  - openjdk-11-jdk
+  - ffmpeg
+  - memcached
+  - php-memcached
+  - nodejs
+  - npm
+  - libapache2-mod-xsendfile
+
+mysql:
+  root_db_password: gjjXtnSr
+  ilias_db_password: ewrw224fqwrJe32rSwer2qf2252fq4
+  hosts:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - localhost

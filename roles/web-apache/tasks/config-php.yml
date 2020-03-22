@@ -1,0 +1,21 @@
+- name: custom php.ini settings
+  template:
+    src: 99-webmaster.ini.j2
+    dest: /etc/php/7.2/apache2/conf.d/99-ilias.ini
+  notify: restart apache2
+
+- name: apache-ssl-conf
+  template:
+    src: default-ssl.conf.j2
+    dest: /etc/apache2/sites-available/default-ssl.conf
+  notify: restart apache2
+
+- name: apache-000-conf
+  template:
+    src: 000-default.conf.j2
+    dest: /etc/apache2/sites-available/000-default.conf
+  notify: restart apache2
+
+
+
+

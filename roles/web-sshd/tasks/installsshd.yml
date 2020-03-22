@@ -1,0 +1,20 @@
+- name: Install openssh-server
+  package:
+    name: openssh-server
+    state: present
+
+- name: Install openssh-sftp-server
+  package:
+    name: openssh-sftp-server
+    state: present
+
+
+- name: create-sshd_config
+  template:
+    src: 'sshd_config.conf.j2'
+    dest: '/etc/ssh/sshd_config'
+    mode: '0600'
+    owner: '{{ sshd_owner }}'
+    group: '{{ sshd_group }}'
+    validate: '/usr/sbin/sshd -T -C user=root -C host=localhost -C addr=localhost -f %s'
+  notify: restart sshd

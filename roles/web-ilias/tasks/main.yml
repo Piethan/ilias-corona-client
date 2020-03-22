@@ -1,0 +1,20 @@
+- stat: path={{ ilias.destination}}
+  register: gitdone
+
+- debug:
+   msg: "/var/www/html/ilias exists"
+  when: gitdone.stat.exists
+
+- debug:
+   msg: "/var/www/html/ilias not exists"
+  when: gitdone.stat.exists == false
+
+- include_tasks: git-clone.yml
+  when: gitdone.stat.exists == false
+- include_tasks: dirs.yml
+
+- include_tasks: install-mysql.yml
+  register: instmysql
+
+- include_tasks: create-db.yml
+  when: instmysql is success

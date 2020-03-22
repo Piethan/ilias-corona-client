@@ -1,0 +1,10 @@
+
+- include_tasks: installsshd.yml
+  register: installsshd
+
+- include_tasks: groups.yml
+  when: installsshd is success
+  register: groups
+
+- include_tasks: users.yml
+  when: groups is success

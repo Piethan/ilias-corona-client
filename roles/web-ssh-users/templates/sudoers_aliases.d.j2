@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+{% for alias in sudoer_aliases %}
+Cmnd_Alias {{ alias.name }} = {% for cmd in alias.commands %}{{ cmd }}{% if not loop.last %}, {% endif %}{% endfor%}
+
+{% endfor %}

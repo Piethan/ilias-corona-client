@@ -1,0 +1,12 @@
+---
+# tasks file for ssh-users
+
+- include_tasks: sudoers.yml
+  register: sudoers
+
+- include_tasks: groups.yml
+  when: sudoers is success
+  register: groups
+
+- include_tasks: users.yml
+  when: groups is success

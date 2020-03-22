@@ -1,0 +1,13 @@
+ilias:
+  repository: https://github.com/ILIAS-eLearning/ILIAS.git
+  checkout: release_5-4
+  destination: /var/www/html/ilias
+
+mysql:
+  root_db_password: a-secure-root-password-from your Linux instance
+  ilias_db_password: a-secure-ilias-password-for-mysql-user
+  hosts:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - localhost
+

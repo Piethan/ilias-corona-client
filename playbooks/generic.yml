@@ -1,0 +1,27 @@
+---
+
+- hosts: ilias-web
+  pre_tasks:
+    - name: install etckeeper
+      package:
+        name: etckeeper
+        state: present
+    - name: etckeeper pre-commit
+      shell: etckeeper commit "pre-commit changes before Ansible runs" || echo "nothing to commit"
+      register: pre_result
+      changed_when: pre_result.stdout.find('nothing to commit') == -1
+
+  roles:
+    - web-sshd
+    - web-ufw
+    - web-ssh-users
+    - web-apache
+    - web-ilias
+
+
+  post_tasks:
+      - name: etckeeper post-commit
+        shell: etckeeper commit "post-commit changes after Ansible run" || echo "nothing to commit"
+        register: post_result
+        changed_when: post_result.stdout.find('nothing to commit') == -1
+

@@ -1,0 +1,30 @@
+---
+
+# Tasks file for Users creation
+
+- name: Create Users
+  user:
+    name={{ item.key }}
+    state={{ item.value.state }}
+    shell={{ item.value.shell }}
+    update_password=on_create
+    expires={{ item.value.expires }}
+  with_dict: "{{ users }}"
+  loop_control:
+    label: "User {{ item.key }} is {{ item.value.state }}"
+
+- name: Add SSH Public Key to Users
+  authorized_key:
+    user={{ item.key }}
+    key="{{ item.value.sshkey }}"
+  with_dict: "{{ users }}"
+  loop_control:
+    label: "SSH public key added for {{ item.key }}"
+
+- name: Add Users to Groups
+  user:
+    name: "{{ item.key }}"
+    groups: "{{ item.value.groups }}"
+  with_dict: "{{ users }}"
+  loop_control:
+    label: "{{ item.key }} Secondary groups: {{ item.value.groups }}"

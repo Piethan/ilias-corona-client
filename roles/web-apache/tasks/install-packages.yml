@@ -1,0 +1,19 @@
+- name: Install Packages (Generic OS)
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ generic_packages }}"
+
+- apache2_module:
+    state: present
+    name: headers
+- apache2_module:
+    state: present
+    name: rewrite
+- apache2_module:
+    state: present
+    name: deflate
+- apache2_module:
+    state: present
+    name: ssl

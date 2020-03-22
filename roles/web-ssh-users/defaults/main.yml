@@ -1,0 +1,45 @@
+
+sudoer_aliases:
+  - name: APT
+    comment: APT Management
+    commands:
+      - /usr/bin/apt-cache search *
+      - /usr/bin/apt-get remove *
+      - /usr/bin/apt-get install *
+  - name: HTTP
+    comment: systemctl Apache2
+    commands:
+      - /bin/systemctl stop apache2.service
+      - /bin/systemctl start apache2.service
+      - /bin/systemctl restart apache2.service
+      - /bin/systemctl status apache2.service
+  - name: VIEW
+    comment: Allow to view all the file
+    commands:
+      - /bin/cat *
+      - /usr/bin/less *
+  - name: CHMOD
+    comment: Allows CHMOD
+    commands:
+      - /bin/chmod *
+
+users_groups:
+  - name: admin
+    sudoers_runas: ALL
+    sudoers_command: ALL
+    sudoers_priority: 10
+    state: present
+  - name: developer
+    sudoers_runas:
+    sudoers_command: VIEW,HTTP,CHMOD
+    sudoers_priority: 20
+    state: present
+
+users:
+  dpiethan:
+    comment: "Dirk Piethan"
+    state: present
+    shell: "/bin/bash"
+    groups: admin
+    sshkey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDbTv3sxcHivIpmO854nexw3VsiWJIPMp/QTe1uECl9EKiF92iQUvI43inZzNQGUsa8coBhOnGhpTGC31hIPH27iojxDlEhSR2vjv2pkM3cupYR3eXJGMG48XlO0NJAedkdSDvnSvD7fbninmFZRWeYkk470ytWVcosa9y9OSZY20bSdmRUZ36VM37QfwpDq2GEcmpJWCU8rHz97awKwX6AfeMAc1ENm+tZZo/2cS/Iz6bGkqY/tN/3Udm12DvnZTa8GZoiZCFq13K0tpF1a4yZW850+KeA+fCCpKj6EZ0Ep5Im0tWTHrQV3RyXC3fwS7i+Bi01korJCUqsyz+RyQiiKjGiZTSScYSv8OjmsdPmUDhtcmb5y5GRcyqx6caQCF/+nGNru99C00mRnO9bPl/rVJDygkUhIQZ6v6/jM6nCQmvF3ZrdOBwT9X0TbPQIO0W8RCkEERyqoQpvhvkARpWDwlwYOuNSbepLgpRh6YeY4ZseTEVdskYLqcNwqkfnvEcICR6Rd+fF3pwm4QCIK+OwVmhcPNvBk7QEADiUovXJI/3it3nuSwgeaAPqUi8SdgbocbT54WXEmx3ilZLn8Tmzdqv/7BqJ+O/a3UDahpchxrtlT1aniIidPXuElCyNDFCaAMJpvJgvNX3zDY84lQunaKN34hM2B4OYrPz9d3QAOw== dirk@centrias.de"
+    expires: -1

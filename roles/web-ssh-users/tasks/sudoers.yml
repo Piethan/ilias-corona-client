@@ -1,0 +1,45 @@
+---
+# Tasks file for Sudoers creation
+
+- name: Install sudo
+  package:
+    name: sudo
+    state: present
+
+- name: Create sudoers.d folder
+  file:
+    path: /etc/sudoers.d
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
+- name: Set includedir in sudoers
+  lineinfile:
+    dest: /etc/sudoers
+    line: "#includedir /etc/sudoers.d"
+    state: present
+    validate: "/usr/sbin/visudo -cf %s"
+
+- name: Create aliases for sudoers
+  template:
+    src: "sudoers_aliases.d.j2"
+    dest: "/etc/sudoers.d/10_aliases"
+    mode: 0440
+    owner: root
+    group: root
+    validate: "/usr/sbin/visudo -cf %s"
+  loop_control:
+    label: "Added file {{ item.sudoers_priority}}_{{ item.name }}"
+
+- name: Create sudoers files for groups
+  template:
+    src: "groups_sudoers.d.j2"
+    dest: "/etc/sudoers.d/{{ item.sudoers_priority}}_{{ item.name }}"
+    mode: 0440
+    owner: root
+    group: root
+    validate: "/usr/sbin/visudo -cf %s"
+  with_items: "{{ users_groups }}"
+  loop_control:
+    label: "Added file {{ item.sudoers_priority}}_{{ item.name }}"

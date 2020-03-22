@@ -1,0 +1,2 @@
+# {{ ansible_managed }}
+%{{ item.name }} ALL = {% if item.sudoers_runas %}({{ item.sudoers_runas }}){% endif %} NOPASSWD:SETENV: {{ item.sudoers_command }}

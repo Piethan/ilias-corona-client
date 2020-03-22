@@ -1,0 +1,8 @@
+---
+# Tasks file for Groups creation
+
+- name: Create group
+  group: name={{ item.name }} state={{ item.state }}
+  with_items: "{{ users_groups }}"
+  loop_control:
+    label: "Group {{ item.name }} created"

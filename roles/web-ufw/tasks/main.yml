@@ -1,0 +1,14 @@
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    force_apt_get: yes
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400 # 24 hours (1 day)
+
+- name: Install ufw
+  package:
+    name: ufw
+    state: present
+
+- include_tasks: fwrules.yml

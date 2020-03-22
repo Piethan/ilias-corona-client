@@ -1,0 +1,26 @@
+sshd_port: 22
+sshd_allow_passwords: False
+sshd_UsePam: True
+sshd_sftp_enabled: True
+sshd_sftp_chroot: True
+sshd_sftp_MatchGroup: sftponly
+sshd_sftp_chrootDir: /var/www/
+sshd_sftp_UMASK: 0027
+sshd_owner: root
+sshd_group: root
+sshd_service_name: sshd.service
+sshd_sftp_authKeyFile: /home/%u/.ssh/authorized_keys
+
+users_groups:
+  - name: sftponly
+    state: present
+
+
+users:
+  www-ftp:
+    comment: "sftp User"
+    state: present
+    shell: "/bin/false"
+    groups: sftponly, www-data
+    sshkey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC1F+YJ6xqYOdTJ6mumCots9ZyAV9uOtXWuAWCjf8Ue+VeFRn1OoglmRYtcZ+ywXNZUK/XMbr9NbruBnRnPE1IFqw6f9eoCVVrI8Va9NUFu4i36hk8JbcjDDNQtzZ6TyqbrF+Ci31eG3PHE2fAdO5X/V4Q0Q5KYBBt+D0mde0F7TnTLlFsSgAeo0e3n/0uIUZ1f7ro4cpzT58aN9wgiTsJsc9WyA90XfqgSg7zRlqBJWyxNxJVL4e04zg72OOw/2YYTzLVeFUkqTvBmSr9yogrdofHXQE6yLE3dEe+/Ywu5Q+n/mtETs2JuY2gNCKZLPCZYLG8y3uqjBSkoRmx/rAT/O9DelIJJtFbdniRnaukbcKX+SwuWBGwLQuQy6Xe3hPJq60zc2iRTkYrwUUcW+b4YH5lVa5bU9Q+MM6z5W8i/eLXgC8vXvxxMHJHzuXem4aLCFnGUbsnfr4nzCfnckjs5z13SkRAhJ0VCmxN1FbfdgDrBEqW+B4Z6KRAu91RUdANDs4Tvsgdq3InlLMoFt931qz0gDkjwUjXEwO0s2RR/dLxHfzm5LAPRRc2xM7fTLnWmWe7lVtemmc8/9ycTxL4bHIITBB+RbZft1g711Wqcdeyw5BxzTLb/8EwlaUwVIuuVWLU3j3Mum2ACgrkKdu1sRJ55E0J7ioC/ynqY5giMDw== dirkpiethan@Dirks-MBP.fritz.box"
+    expires: -1

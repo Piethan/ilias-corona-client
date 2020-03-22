@@ -1,0 +1,5 @@
+- git:
+    repo: "{{ ilias.repository}}"
+    dest: "{{ ilias.destination}}"
+    version: "{{ ilias.checkout}}"
+
